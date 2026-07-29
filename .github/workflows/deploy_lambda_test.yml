@@ -24,18 +24,19 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3"
+          ruby-version: '4.0'
+          bundler-cache: true 
 
       - name: Install dependencies
         run: |
           if [ -f Gemfile ]; then
-            bundle config set path vendor/bundle
+            bundle config set --local path 'vendor/bundle'
             bundle install
           fi
 
       - name: Zip Lambda
         run: |
-          zip -r ./lambda.zip . -x "spec/*"
+          zip -r ./lambda.zip . -x "spec/*" "*.git*" ".github*"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
