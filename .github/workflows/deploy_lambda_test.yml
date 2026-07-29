@@ -35,7 +35,7 @@ jobs:
 
       - name: Zip Lambda
         run: |
-          zip -r ./lambda.zip .
+          zip -r ./lambda.zip . -x "spec/*"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
