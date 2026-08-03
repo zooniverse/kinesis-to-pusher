@@ -22,11 +22,9 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: './kinesis-to-pusher-lambda'
           ruby-version: '4.0'
           bundler-cache: true
-      
-      - name: Install dependencies
-        run: bundle install
 
       - name: Run tests
         run: bundle exec rspec
