@@ -57,15 +57,11 @@ def lambda_handler(event:, context:)
         condition_expression: 'attribute_not_exists(unique_key)'
       )
 
-      ## Skip pushing panoptes classification events to the general channel, for now until zoo-event-stats push to pusher is archived to repeat duplicate messaging
-      # TODO: Remove this conditional once zoo-event-stats is archived and no longer pushing to pusher
-      unless model.source == 'panoptes'
-        PUSHER.trigger(
-          model.source,
-          model.type,
-          model.attributes
-        )
-      end
+      PUSHER.trigger(
+        model.source,
+        model.type,
+        model.attributes
+      )
 
       if model.source == 'panoptes'
         project_specific_channel = "panoptes-project-#{model.attributes[:project_id]}"
