@@ -40,8 +40,7 @@ RSpec.describe Models::PanoptesClassification do
         workflow_id: event['data']['links']['workflow'],
         user_id: event['data']['links']['user'],
         subject_ids: event['data']['links']['subjects'],
-        subject_urls: classification.subject_urls,
-        geo: instance_of(Hash)
+        subject_urls: classification.subject_urls
       }
 
       expect(classification.attributes).to include(expected_attributes)

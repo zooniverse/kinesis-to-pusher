@@ -14,9 +14,10 @@ module Models
         section: data['section'],
         body: data['body'],
         created_at: data['created_at'],
-        geo: Geo.locate(data['user_ip']),
         url: data['url']
-      }
+    }.tap do |attrs|
+        attrs[:geo] = Geo.locate(data['user_ip']) if ENV['GEOLOCATION_ENABLED'] == 'true'
+      end
     end
   end
 end

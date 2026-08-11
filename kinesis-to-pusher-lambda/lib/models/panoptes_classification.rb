@@ -19,9 +19,10 @@ module Models
         workflow_id: links['workflow'],
         user_id: links['user'],
         subject_ids: subject_ids,
-        subject_urls: subject_urls,
-        geo: Geo.locate(data['user_ip'])
-      }
+        subject_urls: subject_urls
+      }.tap do |attrs|
+        attrs[:geo] = Geo.locate(data['user_ip']) if ENV['GEOLOCATION_ENABLED'] == 'true'
+      end
     end
 
     def subject_ids
